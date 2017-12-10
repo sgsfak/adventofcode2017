@@ -51,7 +51,7 @@ def compute_xor(lst):
 def lst_to_hex(lst):
     s = ""
     for i in lst:
-        s += "%0.2X" % i
+        s += "%0.2x" % i
     return s
 
 input = "106,16,254,226,55,2,1,166,177,247,93,0,255,228,60,36"
@@ -63,12 +63,11 @@ def part2(input):
     skip = 0
     seq = initial_seq
     for i in range(64):
-        seq, pos, skip = doit(initial_seq, input_lengths, pos, skip)
+        seq, pos, skip = doit(seq, input_lengths, pos, skip)
     sparse_hash = seq
-    print_list(seq, pos)
     dense_hash = []
     for i in range(16):
-        dense_hash.append(compute_xor([sparse_hash[i+j] for j in range(16)]))
+        dense_hash.append(compute_xor([sparse_hash[16*i+j] for j in range(16)]))
     return lst_to_hex(dense_hash)
 
 
